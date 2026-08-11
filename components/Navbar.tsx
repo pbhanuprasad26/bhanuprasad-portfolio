@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, Share2, Check } from "lucide-react";
 import { site, nav } from "@/data/content";
 
 export default function Navbar() {
@@ -9,6 +9,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("");
   const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const current = (document.documentElement.getAttribute("data-theme") as "dark" | "light") || "dark";
@@ -22,6 +23,28 @@ export default function Navbar() {
     try {
       localStorage.setItem("theme", next);
     } catch {}
+  }
+
+  async function handleShare() {
+    const url = window.location.origin + window.location.pathname;
+    const shareData = {
+      title: `${site.fullName} — Tax Technology Portfolio`,
+      text: "Take a look at this Tax Technology & Automation portfolio.",
+      url,
+    };
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch {
+        // Visitor cancelled the native share sheet — no action needed
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(url);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch {}
+    }
   }
 
   useEffect(() => {
@@ -86,6 +109,22 @@ export default function Navbar() {
 
           <div className="flex items-center gap-4">
             <button
+              aria-label="Share this portfolio"
+              onClick={handleShare}
+              className="relative w-9 h-9 flex items-center justify-center rounded-full transition-colors hover-surface"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              {copied ? <Check size={18} /> : <Share2 size={18} />}
+              {copied && (
+                <span
+                  className="mono absolute top-11 right-0 text-[10px] px-2.5 py-1.5 rounded-md border whitespace-nowrap"
+                  style={{ background: "var(--color-bg-elevated)", borderColor: "var(--color-border)", color: "var(--color-text)" }}
+                >
+                  Link copied
+                </span>
+              )}
+            </button>
+            <button
               aria-label="Toggle theme"
               onClick={toggleTheme}
               className="w-9 h-9 flex items-center justify-center rounded-full transition-colors hover-surface"
@@ -116,7 +155,18 @@ export default function Navbar() {
         <div className="flex items-center justify-between px-5 h-[76px]">
           <span className="font-display font-semibold text-lg">{site.name}</span>
           <div className="flex items-center gap-4">
-            <button onClick={toggleTheme} style={{ color: "var(--color-text-muted)" }}>
+            <button aria-label="Share this portfolio" onClick={handleShare} className="relative" style={{ color: "var(--color-text-muted)" }}>
+              {copied ? <Check size={18} /> : <Share2 size={18} />}
+              {copied && (
+                <span
+                  className="mono absolute top-8 right-0 text-[10px] px-2.5 py-1.5 rounded-md border whitespace-nowrap"
+                  style={{ background: "var(--color-bg-elevated)", borderColor: "var(--color-border)", color: "var(--color-text)" }}
+                >
+                  Link copied
+                </span>
+              )}
+            </button>
+            <button aria-label="Toggle theme" onClick={toggleTheme} style={{ color: "var(--color-text-muted)" }}>
               {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <button aria-label="Close menu" onClick={() => setMenuOpen(false)}>
