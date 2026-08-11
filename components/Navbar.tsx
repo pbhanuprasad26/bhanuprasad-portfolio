@@ -29,7 +29,7 @@ export default function Navbar() {
     const url = window.location.origin + window.location.pathname;
     const shareData = {
       title: `${site.fullName} — Tax Technology Portfolio`,
-      text: "Take a look at this Tax Technology & Automation portfolio.",
+      text: "Check this out — Bhanu's Tax Technology portfolio, from U.S. tax compliance to automation and AI.",
       url,
     };
     if (navigator.share) {
