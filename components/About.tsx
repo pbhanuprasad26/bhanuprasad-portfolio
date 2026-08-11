@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { GraduationCap, Diamond } from "lucide-react";
 import { aboutIntro, about } from "@/data/content";
+import { asset } from "@/lib/basePath";
 import Reveal from "./Reveal";
 
 export default function About() {
@@ -44,7 +45,7 @@ export default function About() {
               <div className="rounded-2xl border overflow-hidden" style={{ borderColor: "var(--color-border)" }}>
                 <div className="relative aspect-[4/5] w-full">
                   <Image
-                    src="/profile.jpg"
+                    src={asset("/profile.jpg")}
                     alt={about.photoCaption.name}
                     fill
                     className="object-cover"

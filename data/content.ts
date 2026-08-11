@@ -5,6 +5,8 @@
 // against what Bhanu has actually done — nothing speculative.
 // ============================================================
 
+import { asset } from "@/lib/basePath";
+
 export const site = {
   name: "Bhanu Prasad",
   fullName: "Bhanu Prasad Pochannapeta",
@@ -40,7 +42,7 @@ export const hero = {
   engagementBadge: "INTUIT ENGAGEMENT",
   ctaPrimary: { label: "View Experience", href: "#experience" },
   ctaSecondary: { label: "Explore Projects", href: "#projects" },
-  ctaTertiary: { label: "Download Resume", href: "/resume.pdf" },
+  ctaTertiary: { label: "Download Resume", href: asset("/resume.pdf") },
   pipeline: [
     { n: "01", label: "TAX RULES" },
     { n: "02", label: "DATA" },
@@ -424,7 +426,7 @@ export const resumeCta = {
   sub: "Explore my experience, technical skills, and professional background in a concise resume.",
   viewLabel: "View Resume",
   downloadLabel: "Download Resume",
-  href: "/resume.pdf",
+  href: asset("/resume.pdf"),
 };
 
 // ------------------------------------------------------------
