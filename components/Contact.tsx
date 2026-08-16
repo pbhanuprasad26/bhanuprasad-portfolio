@@ -7,13 +7,6 @@ import Reveal from "./Reveal";
 
 const icons = { linkedin: Linkedin, github: Github, mail: Mail };
 
-function gmailComposeUrl({ to, subject, body }: { to: string; subject?: string; body?: string }) {
-  const params = new URLSearchParams({ view: "cm", fs: "1", to });
-  if (subject) params.set("su", subject);
-  if (body) params.set("body", body);
-  return `https://mail.google.com/mail/?${params.toString()}`;
-}
-
 export default function Contact() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,9 +14,9 @@ export default function Contact() {
     const name = form.get("name");
     const email = form.get("email");
     const message = form.get("message");
-    const subject = `Portfolio contact from ${name}`;
-    const body = `${message}\n\n— ${name} (${email})`;
-    window.open(gmailComposeUrl({ to: site.email, subject, body }), "_blank");
+    const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+    window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
   }
 
   return (
@@ -88,7 +81,7 @@ export default function Contact() {
                   <a
                     key={link.label}
                     href={link.href}
-                    target="_blank"
+                    target={link.icon === "mail" ? undefined : "_blank"}
                     className="flex items-center gap-4 py-5 border-b transition-colors hover-surface-soft"
                     style={{ borderColor: "var(--color-border)" }}
                   >

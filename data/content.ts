@@ -12,8 +12,8 @@ export const site = {
   fullName: "Bhanu Prasad Pochannapeta",
   tagline: "Tax Technology · Automation · AI",
   email: "bhanuprasad26dec@gmail.com",
-  linkedin: "linkedin.com/in/bhanu-prasad-pochannapeta",
-  linkedinUrl: "https://linkedin.com/in/bhanu-prasad-pochannapeta",
+  linkedin: "linkedin.com/in/bhanu-prasad-pochannapeta-89028225a",
+  linkedinUrl: "https://www.linkedin.com/in/bhanu-prasad-pochannapeta-89028225a",
   github: "github.com/pbhanuprasad26",
   githubUrl: "https://github.com/pbhanuprasad26",
   year: 2026,
@@ -453,7 +453,7 @@ export const contactForm = {
 export const contactLinks = [
   { label: "LinkedIn", value: site.linkedin, href: site.linkedinUrl, icon: "linkedin" as const },
   { label: "GitHub", value: site.github, href: site.githubUrl, icon: "github" as const },
-  { label: "Email", value: site.email, href: `https://mail.google.com/mail/?view=cm&fs=1&to=${site.email}`, icon: "mail" as const },
+  { label: "Email", value: site.email, href: `mailto:${site.email}`, icon: "mail" as const },
 ];
 
 export const footer = {
